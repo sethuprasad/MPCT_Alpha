@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Equipment Catalogue</title>
+  <title>Metrology Equipment Catalogue</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -23,21 +23,54 @@
       justify-content: space-between;
       margin-bottom: 20px;
       gap: 10px;
+      align-items: center;
     }
-    .controls input[type="search"],
-    .controls select {
+    .controls input[type="search"] {
       padding: 8px;
       font-size: 16px;
       min-width: 200px;
-      flex-grow: 1;
       max-width: 300px;
       border: 1px solid #ccc;
       border-radius: 4px;
+      flex-grow: 1;
+    }
+    .toggle-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .toggle-group label {
+      cursor: pointer;
+      user-select: none;
+      padding: 6px 12px;
+      border: 1px solid #0073e6;
+      border-radius: 4px;
+      background: #fff;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      font-size: 14px;
+    }
+    .toggle-group input[type="checkbox"] {
+      display: none;
+    }
+    .toggle-group input[type="checkbox"]:checked + label {
+      background: #0073e6;
+      color: #fff;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 20px;
+    }
+    @media (max-width: 960px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 480px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
     }
     .card {
       background: #fff;
@@ -49,6 +82,7 @@
       display: flex;
       flex-direction: column;
       text-align: center;
+      user-select: none;
     }
     .card:hover {
       box-shadow: 0 6px 16px rgb(0 0 0 / 0.2);
@@ -66,219 +100,277 @@
       font-weight: bold;
       font-size: 18px;
       color: #0073e6;
-      text-decoration: none;
-      user-select: none;
     }
-    .card-name:hover {
-      text-decoration: underline;
-    }
-    .pagination {
+    .description-panel {
       margin-top: 30px;
-      text-align: center;
-    }
-    .pagination button {
-      padding: 8px 12px;
-      margin: 0 5px;
-      font-size: 16px;
-      border: 1px solid #0073e6;
       background: #fff;
-      color: #0073e6;
-      border-radius: 4px;
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.3s ease, color 0.3s ease;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      padding: 20px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      min-height: 120px;
     }
-    .pagination button:hover:not(:disabled) {
-      background: #0073e6;
-      color: #fff;
+    .description-panel h2 {
+      margin-top: 0;
     }
-    .pagination button:disabled {
-      opacity: 0.5;
-      cursor: default;
+    .no-selection {
+      text-align: center;
+      color: #666;
+      font-style: italic;
+      line-height: 120px;
     }
   </style>
 </head>
 <body>
 
-  <h1>Equipment Catalogue</h1>
+  <h1>Metrology Equipment Catalogue</h1>
 
-  <div class="controls">
+  <div class="controls" aria-label="Search and filter controls">
     <input type="search" id="searchInput" placeholder="Search equipment..." aria-label="Search equipment" />
-    <select id="sortSelect" aria-label="Sort equipment">
-      <option value="name">Sort by Name</option>
-      <option value="category">Sort by Category</option>
-    </select>
+
+    <div class="toggle-group" role="group" aria-label="Filter by equipment category">
+      <input type="checkbox" id="filterCMM" checked />
+      <label for="filterCMM">CMM</label>
+      <input type="checkbox" id="filterCalipers" checked />
+      <label for="filterCalipers">Calipers</label>
+      <input type="checkbox" id="filterMicrometers" checked />
+      <label for="filterMicrometers">Micrometers</label>
+      <input type="checkbox" id="filterGaugeBlocks" checked />
+      <label for="filterGaugeBlocks">Gauge Blocks</label>
+      <input type="checkbox" id="filterSurfacePlates" checked />
+      <label for="filterSurfacePlates">Surface Plates</label>
+      <input type="checkbox" id="filterOptical" checked />
+      <label for="filterOptical">Optical Instruments</label>
+    </div>
   </div>
 
   <div id="equipmentGrid" class="grid" aria-live="polite" aria-atomic="true"></div>
 
-  <div class="pagination" aria-label="Pagination controls">
-    <button id="prevPageBtn" aria-label="Previous page">Previous</button>
-    <span id="pageInfo" aria-live="polite" aria-atomic="true"></span>
-    <button id="nextPageBtn" aria-label="Next page">Next</button>
-  </div>
+  <section id="descriptionPanel" class="description-panel" aria-live="polite" aria-atomic="true" tabindex="0">
+    <p class="no-selection">Select an equipment to view its description here.</p>
+  </section>
 
   <script>
-    // Equipment data array
     const equipmentData = [
       {
         id: "eq1",
-        name: "Excavator",
-        category: "Heavy",
-        imageUrl: "https://via.placeholder.com/300x140?text=Excavator",
+        name: "Coordinate Measuring Machine (CMM)",
+        category: "CMM",
+        imageUrl: "https://cdn.pixabay.com/photo/2017/08/02/01/28/machine-2568653_1280.jpg",
         description:
-          "A powerful heavy equipment used for digging and earthmoving.",
+          "A device for measuring the physical geometrical characteristics of an object with high precision.",
       },
       {
         id: "eq2",
-        name: "Bulldozer",
-        category: "Heavy",
-        imageUrl: "https://via.placeholder.com/300x140?text=Bulldozer",
+        name: "Vernier Calipers",
+        category: "Calipers",
+        imageUrl: "https://cdn.pixabay.com/photo/2016/03/27/18/00/vernier-caliper-1283817_1280.jpg",
         description:
-          "A heavy machine with a large blade for pushing material during construction.",
+          "A precision instrument used to measure internal and external dimensions in millimeters or inches.",
       },
       {
         id: "eq3",
-        name: "Drill Machine",
-        category: "Light",
-        imageUrl: "https://via.placeholder.com/300x140?text=Drill+Machine",
+        name: "Digital Micrometer",
+        category: "Micrometers",
+        imageUrl: "https://cdn.pixabay.com/photo/2017/03/05/21/38/micrometer-2122838_1280.jpg",
         description:
-          "A tool used for making round holes or driving fasteners.",
+          "A micrometer with a digital display used for extremely precise measurement of small distances.",
       },
       {
         id: "eq4",
-        name: "Crane",
-        category: "Heavy",
-        imageUrl: "https://via.placeholder.com/300x140?text=Crane",
+        name: "Gauge Blocks",
+        category: "Gauge Blocks",
+        imageUrl: "https://cdn.pixabay.com/photo/2017/01/06/19/15/gauge-blocks-1959371_1280.jpg",
         description:
-          "A tall machine used for moving heavy objects by suspending them from a projecting arm.",
+          "Precision ground and lapped measuring standards used to calibrate measuring equipment.",
       },
       {
         id: "eq5",
-        name: "Welding Machine",
-        category: "Light",
-        imageUrl: "https://via.placeholder.com/300x140?text=Welding+Machine",
+        name: "Height Gauge",
+        category: "CMM",
+        imageUrl: "https://cdn.pixabay.com/photo/2017/08/10/05/13/measuring-instrument-2617381_1280.jpg",
         description:
-          "A device used to join metals by melting and fusing them together.",
+          "Used for measuring vertical dimensions and marking out workpieces.",
       },
       {
         id: "eq6",
-        name: "Loader",
-        category: "Heavy",
-        imageUrl: "https://via.placeholder.com/300x140?text=Loader",
+        name: "Dial Calipers",
+        category: "Calipers",
+        imageUrl: "https://cdn.pixabay.com/photo/2016/06/15/17/17/dial-caliper-1459887_1280.jpg",
         description:
-          "A heavy equipment machine used in construction to load materials.",
+          "Calipers with a dial indicator for precise measurements.",
       },
       {
         id: "eq7",
-        name: "Concrete Mixer",
-        category: "Light",
-        imageUrl: "https://via.placeholder.com/300x140?text=Concrete+Mixer",
+        name: "Outside Micrometer",
+        category: "Micrometers",
+        imageUrl: "https://cdn.pixabay.com/photo/2017/02/21/23/56/micrometer-2086211_1280.jpg",
         description:
-          "A device that combines cement, aggregate such as sand or gravel, and water to form concrete.",
+          "Used to measure the outside dimensions of an object with high accuracy.",
       },
-      // Add more as needed
+      {
+        id: "eq8",
+        name: "Slip Gauge Set",
+        category: "Gauge Blocks",
+        imageUrl: "https://cdn.pixabay.com/photo/2016/11/21/15/38/metal-1845536_1280.jpg",
+        description:
+          "A set of precision ground blocks used as length standards.",
+      },
+      {
+        id: "eq9",
+        name: "Granite Surface Plate",
+        category: "Surface Plates",
+        imageUrl: "https://cdn.pixabay.com/photo/2015/07/16/11/27/granite-846577_1280.jpg",
+        description:
+          "A flat reference surface used as the foundation for precision inspection and tooling setup.",
+      },
+      {
+        id: "eq10",
+        name: "Optical Comparator",
+        category: "Optical",
+        imageUrl: "https://cdn.pixabay.com/photo/2019/07/10/11/46/optical-4312302_1280.jpg",
+        description:
+          "An optical device used to compare a part to its drawing by magnifying the part's profile.",
+      },
+      {
+        id: "eq11",
+        name: "Dial Indicator",
+        category: "Optical",
+        imageUrl: "https://cdn.pixabay.com/photo/2016/11/29/03/53/dial-gauge-1869187_1280.jpg",
+        description:
+          "A precision instrument used to measure small linear distances and variations in height.",
+      },
+      {
+        id: "eq12",
+        name: "Precision Surface Plate",
+        category: "Surface Plates",
+        imageUrl: "https://cdn.pixabay.com/photo/2015/08/06/00/07/metal-877735_1280.jpg",
+        description:
+          "Used as a baseline for inspection, layout, and tooling in the metrology lab.",
+      }
     ];
 
-    // Pagination & state
-    let currentPage = 1;
-    const itemsPerPage = 6;
-
-    // Cached elements
     const grid = document.getElementById("equipmentGrid");
     const searchInput = document.getElementById("searchInput");
-    const sortSelect = document.getElementById("sortSelect");
-    const prevPageBtn = document.getElementById("prevPageBtn");
-    const nextPageBtn = document.getElementById("nextPageBtn");
-    const pageInfo = document.getElementById("pageInfo");
+    const filterCMM = document.getElementById("filterCMM");
+    const filterCalipers = document.getElementById("filterCalipers");
+    const filterMicrometers = document.getElementById("filterMicrometers");
+    const filterGaugeBlocks = document.getElementById("filterGaugeBlocks");
+    const filterSurfacePlates = document.getElementById("filterSurfacePlates");
+    const filterOptical = document.getElementById("filterOptical");
+    const descriptionPanel = document.getElementById("descriptionPanel");
 
-    // Filter, sort and paginate data
-    function getFilteredSortedData() {
+    let selectedEquipmentId = null;
+
+    function filterAndRender() {
       const searchTerm = searchInput.value.trim().toLowerCase();
-      let filtered = equipmentData.filter(eq =>
-        eq.name.toLowerCase().includes(searchTerm)
-      );
+      const categoriesToShow = [];
+      if (filterCMM.checked) categoriesToShow.push("CMM");
+      if (filterCalipers.checked) categoriesToShow.push("Calipers");
+      if (filterMicrometers.checked) categoriesToShow.push("Micrometers");
+      if (filterGaugeBlocks.checked) categoriesToShow.push("Gauge Blocks");
+      if (filterSurfacePlates.checked) categoriesToShow.push("Surface Plates");
+      if (filterOptical.checked) categoriesToShow.push("Optical");
 
-      if (sortSelect.value === "name") {
-        filtered.sort((a, b) => a.name.localeCompare(b.name));
-      } else if (sortSelect.value === "category") {
-        filtered.sort((a, b) => a.category.localeCompare(b.category));
-      }
+      const filtered = equipmentData.filter(eq => {
+        const matchesSearch = eq.name.toLowerCase().includes(searchTerm);
+        const matchesCategory = categoriesToShow.includes(eq.category);
+        return matchesSearch && matchesCategory;
+      });
 
-      return filtered;
-    }
-
-    function renderPage() {
-      const filteredData = getFilteredSortedData();
-      const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-
-      if (currentPage > totalPages) currentPage = totalPages || 1;
-
-      const start = (currentPage - 1) * itemsPerPage;
-      const paginatedData = filteredData.slice(start, start + itemsPerPage);
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
 
       grid.innerHTML = "";
 
-      if (paginatedData.length === 0) {
+      if (filtered.length === 0) {
         grid.innerHTML = "<p>No equipment found.</p>";
-      } else {
-        paginatedData.forEach(eq => {
-          const card = document.createElement("div");
-          card.className = "card";
-          card.tabIndex = 0;
-
-          const img = document.createElement("img");
-          img.src = eq.imageUrl;
-          img.alt = eq.name;
-          img.loading = "lazy";
-
-          const link = document.createElement("a");
-          link.href = `equipment-description.html?id=${encodeURIComponent(eq.id)}`;
-          link.className = "card-name";
-          link.textContent = eq.name;
-          link.setAttribute("aria-label", `View details of ${eq.name}`);
-
-          card.appendChild(img);
-          card.appendChild(link);
-
-          grid.appendChild(card);
-        });
+        descriptionPanel.innerHTML = '<p class="no-selection">Select an equipment to view its description here.</p>';
+        selectedEquipmentId = null;
+        return;
       }
 
-      pageInfo.textContent = `Page ${currentPage} of ${totalPages || 1}`;
-      prevPageBtn.disabled = currentPage === 1;
-      nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;
+      filtered.forEach(eq => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.tabIndex = 0;
+        card.setAttribute("role", "button");
+        card.setAttribute("aria-pressed", selectedEquipmentId === eq.id ? "true" : "false");
+        card.setAttribute("aria-label", `View details of ${eq.name}`);
+
+        const img = document.createElement("img");
+        img.src = eq.imageUrl;
+        img.alt = eq.name;
+        img.loading = "lazy";
+
+        const nameDiv = document.createElement("div");
+        nameDiv.className = "card-name";
+        nameDiv.textContent = eq.name;
+
+        card.appendChild(img);
+        card.appendChild(nameDiv);
+
+        card.addEventListener("click", () => {
+          selectedEquipmentId = eq.id;
+          renderDescription(eq);
+          updateSelection();
+        });
+        card.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            card.click();
+          }
+        });
+
+        grid.appendChild(card);
+      });
+
+      if (!filtered.find(eq => eq.id === selectedEquipmentId)) {
+        selectedEquipmentId = null;
+        descriptionPanel.innerHTML = '<p class="no-selection">Select an equipment to view its description here.</p>';
+      }
+      updateSelection();
+    }
+
+    function renderDescription(eq) {
+      descriptionPanel.innerHTML = `
+        <h2>${eq.name}</h2>
+        <p><strong>Category:</strong> ${eq.category}</p>
+        <p>${eq.description}</p>
+      `;
+      descriptionPanel.focus();
+    }
+
+    function updateSelection() {
+      const cards = grid.querySelectorAll(".card");
+      cards.forEach(card => {
+        const nameDiv = card.querySelector(".card-name");
+        if (nameDiv && nameDiv.textContent === getSelectedEquipmentName()) {
+          card.setAttribute("aria-pressed", "true");
+          card.style.boxShadow = "0 6px 16px rgb(0 0 0 / 0.3)";
+        } else {
+          card.setAttribute("aria-pressed", "false");
+          card.style.boxShadow = "";
+        }
+      });
+    }
+
+    function getSelectedEquipmentName() {
+      const selected = equipmentData.find(eq => eq.id === selectedEquipmentId);
+      return selected ? selected.name : null;
     }
 
     // Event listeners
-    searchInput.addEventListener("input", () => {
-      currentPage = 1;
-      renderPage();
-    });
+    searchInput.addEventListener("input", filterAndRender);
+    filterCMM.addEventListener("change", filterAndRender);
+    filterCalipers.addEventListener("change", filterAndRender);
+    filterMicrometers.addEventListener("change", filterAndRender);
+    filterGaugeBlocks.addEventListener("change", filterAndRender);
+    filterSurfacePlates.addEventListener("change", filterAndRender);
+    filterOptical.addEventListener("change", filterAndRender);
 
-    sortSelect.addEventListener("change", () => {
-      currentPage = 1;
-      renderPage();
-    });
-
-    prevPageBtn.addEventListener("click", () => {
-      if (currentPage > 1) {
-        currentPage--;
-        renderPage();
-      }
-    });
-
-    nextPageBtn.addEventListener("click", () => {
-      const filteredLength = getFilteredSortedData().length;
-      const totalPages = Math.ceil(filteredLength / itemsPerPage);
-      if (currentPage < totalPages) {
-        currentPage++;
-        renderPage();
-      }
-    });
-
-    // Initial render
-    renderPage();
+    filterAndRender();
   </script>
 </body>
 </html>
