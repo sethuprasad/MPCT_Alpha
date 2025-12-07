@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metrology Lab - Equipment Overview</title>
+<style>
+  /* ---- GLOBAL ---- */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: "Segoe UI", sans-serif;
+    background: #f4f6fa;
+    display: flex;
+    color: #1a1f36;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* ---- SIDEBAR ---- */
+  aside.sidebar {
+    width: 280px;
+    background: #1a1f36;
+    color: white;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar-inner {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .nav-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-item {
+    background: none;
+    border: none;
+    color: #b9c1d9;
+    text-align: left;
+    padding: 12px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-item:hover {
+    background: #2b3354;
+    color: #fff;
+  }
+  .nav-item.active {
+    background: #3043e0;
+    color: #fff;
+  }
+  .nav-arrow {
+    font-size: 18px;
+    transition: transform 0.3s;
+  }
+  .nav-item.active .nav-arrow {
+    transform: rotate(90deg);
+  }
+
+  .submenu {
+    display: none;
+    flex-direction: column;
+    margin-left: 15px;
+    margin-top: 5px;
+  }
+  .submenu a {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #d9def0;
+    border-radius: 5px;
+    transition: background 0.2s;
+  }
+  .submenu a:hover {
+    background: #3e4973;
+  }
+
+  /* ---- DOWNLOADS & CONTACT ---- */
+  .downloads {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .download-btn {
+    padding: 12px;
+    border-radius: 8px;
+    background: #3043e0;
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: none;
+  }
+  .download-btn:hover {
+    background: #1f2fb5;
+  }
+
+  .sidebar-help {
+    margin-top: 30px;
+    font-size: 13px;
+  }
+  .sidebar-help h4 {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  .sidebar-help .muted {
+    color: #b9c1d9;
+    line-height: 1.4;
+  }
+
+  /* ---- MAIN CONTENT ---- */
+  main {
+    margin-left: 280px;
+    padding: 40px;
+    width: calc(100% - 280px);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .top-images {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .top-images img {
+    width: 100%;
+    max-width: 480px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  .page-title {
+    font-size: 32px;
+    font-weight: 700;
+  }
+  .description {
+    font-size: 16px;
+    color: #4a5570;
+    line-height: 1.7;
+  }
+
+  /* CARD DESIGN */
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  }
+  .card h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #1a1f36;
+  }
+  .feature-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    color: #3b4259;
+  }
+  .feature-item::before {
+    content: "✔";
+    color: #3043e0;
+    font-weight: bold;
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 900px) {
+    main {
+      margin-left: 0;
+      padding: 20px;
+      width: 100%;
+    }
+    .top-images {
+      flex-direction: column;
+    }
+    .feature-list {
+      grid-template-columns: 1fr;
+    }
+    aside.sidebar {
+      position: relative;
+      width: 100%;
+      height: auto;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" aria-label="Primary">
+  <div class="sidebar-inner">
+
+    <nav class="nav-categories" aria-label="Categories">
+
+      <div class="nav-group">
+        <button class="nav-item">
+          OPTICAL METROLOGY
+          <span class="nav-arrow">&rsaquo;</span>
+        </button>
+        <div class="submenu">
+          <a href="#">Microscope (VHX-7000)</a>
+          <a href="#">Laser Profilometer</a>
+          <a href="#">Ellipsometer</a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-item">
+          ELECTRICAL METROLOGY
+          <span class="nav-arrow">&rsaquo;</span>
+        </button>
+        <div class="submenu">
+          <a href="#">4-Point Probe</a>
+          <a href="#">C-V Profiler</a>
+          <a href="#">Sheet Resistance Tester</a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-item">
+          MATERIAL ANALYSIS
+          <span class="nav-arrow">&rsaquo;</span>
+        </button>
+        <div class="submenu">
+          <a href="#">EDX Elemental Analyzer</a>
+          <a href="#">XRF Analyzer</a>
+          <a href="#">FTIR Analyzer</a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-item active" aria-current="true">
+          SURFACE PROFILING
+          <span class="nav-arrow">&rsaquo;</span>
+        </button>
+        <div class="submenu">
+          <a href="#">AFM</a>
+          <a href="#">Stylus Profilometer</a>
+          <a href="#">White-Light Interferometer</a>
+        </div>
+      </div>
+
+    </nav>
+
+    <!-- Downloads -->
+    <div class="downloads">
+      <button class="download-btn">Download.pdf</button>
+      <button class="download-btn">Download.txt</button>
+    </div>
+
+    <!-- Contact -->
+    <div class="sidebar-help">
+      <h4>Contact us for help?</h4>
+      <p class="muted">lab-support@university.edu<br>+1 (555) 555-5555</p>
+    </div>
+
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main>
+  <div class="top-images">
+    <img src="https://via.placeholder.com/500x300" alt="Equipment Image 1">
+    <img src="https://via.placeholder.com/500x300" alt="Equipment Image 2">
+  </div>
+
+  <div class="page-title">Keyence VHX-7000 4K Digital Microscope — Equipment Overview</div>
+
+  <div class="description">
+    The Keyence VHX-7000 is a state-of-the-art 4K optical microscope widely used in semiconductor fabs, R&D labs, failure analysis, and advanced material characterization. Known for its ultra-high accuracy, deep depth-of-field, and automated measurement workflows, the VHX-7000 allows researchers to inspect, quantify, and document microscopic features with unmatched clarity.
+  </div>
+
+  <div class="card">
+    <h3>Core Features</h3>
+    <div class="feature-list">
+      <div class="feature-item">4K Ultra-High-Resolution Imaging</div>
+      <div class="feature-item">Advanced Auto-Focus & HDR Enhancement</div>
+      <div class="feature-item">Multi-Angle Observation & Tilt Stages</div>
+      <div class="feature-item">Automated Measurement Tools</div>
+      <div class="feature-item">3D Surface Profiling Mode</div>
+      <div class="feature-item">Non-Contact Height & Roughness Analysis</div>
+      <div class="feature-item">Rapid Image Stitching (Up to 50,000 pixels wide)</div>
+      <div class="feature-item">Built-in Report Generator for Documentation</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Applications</h3>
+    <div class="feature-list">
+      <div class="feature-item">Semiconductor Defect Inspection</div>
+      <div class="feature-item">Bond Pad & Metallization Analysis</div>
+      <div class="feature-item">MEMS Structure Inspection</div>
+      <div class="feature-item">Crack & Fracture Characterization</div>
+      <div class="feature-item">Surface Roughness Studies</div>
+      <div class="feature-item">Composite Material Analysis</div>
+    </div>
+  </div>
+</main>
+
+<script>
+  // Toggle submenu on click
+  const navItems = document.querySelectorAll('.nav-item');
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const submenu = item.nextElementSibling;
+      if(submenu.style.display === 'flex') {
+        submenu.style.display = 'none';
+        item.classList.remove('active');
+      } else {
+        document.querySelectorAll('.submenu').forEach(sm => sm.style.display = 'none');
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        submenu.style.display = 'flex';
+        item.classList.add('active');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

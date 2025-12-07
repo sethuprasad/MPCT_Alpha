@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Metrology Lab – Equipment Details</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f7fa;
+    }
+
+    /* HEADER */
+    header {
+        background: #1a1f36;
+        padding: 15px 40px;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    header .logo {
+        font-size: 22px;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    nav a {
+        color: white;
+        margin-left: 20px;
+        text-decoration: none;
+        font-size: 15px;
+        opacity: 0.85;
+    }
+    nav a:hover {
+        opacity: 1;
+        text-decoration: underline;
+    }
+
+    /* HERO */
+    .hero {
+        background: url('https://images.pexels.com/photos/256262/pexels-photo-256262.jpeg') center/cover no-repeat;
+        padding: 120px 40px;
+        color: white;
+        text-shadow: 0 0 10px rgba(0,0,0,0.7);
+    }
+
+    .hero h1 {
+        font-size: 44px;
+        margin-bottom: 10px;
+    }
+
+    .hero p {
+        font-size: 20px;
+        max-width: 700px;
+    }
+
+    /* CONTENT WRAPPER */
+    .container {
+        padding: 40px;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .section-title {
+        font-size: 26px;
+        font-weight: bold;
+        margin-top: 50px;
+        border-left: 6px solid #3a57e8;
+        padding-left: 10px;
+        color: #1a1f36;
+    }
+
+    /* EQUIPMENT INTRO */
+    .equipment-header {
+        display: flex;
+        gap: 40px;
+        margin-top: 30px;
+    }
+
+    .equipment-header img {
+        width: 500px;
+        border-radius: 12px;
+        box-shadow: 0px 6px 18px rgba(0,0,0,0.2);
+    }
+
+    .tag {
+        display: inline-block;
+        background: #3a57e8;
+        padding: 5px 12px;
+        border-radius: 6px;
+        color: white;
+        margin-right: 10px;
+        font-size: 14px;
+    }
+
+    .spec-box, .feature-card, .comparison-table {
+        background: white;
+        padding: 25px;
+        margin-top: 20px;
+        border-radius: 12px;
+        box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .comparison-table table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    table td, table th {
+        border: 1px solid #dfe3ee;
+        padding: 12px;
+    }
+
+    table th {
+        background: #f1f3f8;
+    }
+
+    .btn {
+        background: #3a57e8;
+        color: white;
+        padding: 12px 22px;
+        border-radius: 8px;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 20px;
+    }
+
+    .btn:hover {
+        background: #2e45c5;
+    }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        margin-top: 60px;
+        background: #1a1f36;
+        color: white;
+    }
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="logo">Metrology Lab</div>
+    <nav>
+        <a href="#">Optical Metrology</a>
+        <a href="#">Dimensional Metrology</a>
+        <a href="#">Surface Profiling</a>
+        <a href="#">Spectroscopy & EDX</a>
+        <a href="#">Thin Film Analysis</a>
+        <a href="#">Equipment Catalogue</a>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>Equipment Details</h1>
+    <p>Explore in-depth specifications, capabilities, and metrology performance of our advanced laboratory instrumentation.</p>
+</section>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+    <!-- EQUIPMENT SUMMARY -->
+    <div class="equipment-header">
+        <img src="https://www.keyence.com/media/catalog/product/vhx-7000/vhx7000_01_l.jpg" alt="Optical Microscope">
+        
+        <div>
+            <span class="tag">Optical Metrology</span>
+            <span class="tag">High-Resolution Imaging</span>
+            <h2>Keyence VHX-7000 Digital Microscope</h2>
+            <p>
+                The Keyence VHX-7000 is an advanced all-in-one optical microscope offering 
+                ultra-high-resolution imaging, automatic depth composition, multi-angle illumination, 
+                and precise dimensional measurements. It is widely used in semiconductor inspection, 
+                wafer surface characterization, failure analysis, micro-structure evaluation, and materials science.
+            </p>
+            <a href="#" class="btn">Request Booking</a>
+        </div>
+    </div>
+
+    <!-- FEATURES -->
+    <h3 class="section-title">Key Features</h3>
+
+    <div class="feature-card">
+        <ul>
+            <li><strong>4K Ultra-High-Resolution Imaging</strong> with advanced lighting algorithms.</li>
+            <li><strong>1000× Depth of Field</strong> compared to traditional microscopes.</li>
+            <li><strong>0.1 μm–10 mm Measurement Range</strong> with sub-micron accuracy.</li>
+            <li><strong>360° Rotational Observation</strong> for capturing complex geometries.</li>
+            <li><strong>Multi-Illumination Modes</strong> (brightfield, darkfield, polarized, DIC).</li>
+            <li><strong>Automatic Contamination & Defect Detection</strong> using real-time analytics.</li>
+            <li><strong>Non-destructive measurement</strong> with image stacking and 3D profiling.</li>
+        </ul>
+    </div>
+
+    <!-- SPECIFICATIONS -->
+    <h3 class="section-title">Technical Specifications</h3>
+
+    <div class="spec-box">
+        <table>
+            <tr><th>Parameter</th><th>Value</th></tr>
+            <tr><td>Resolution</td><td>4K Ultra-HD (3840 × 2160)</td></tr>
+            <tr><td>Magnification Range</td><td>20× – 6000×</td></tr>
+            <tr><td>Depth Composition</td><td>Automatic Z-stacking up to 500 slices</td></tr>
+            <tr><td>XY Measurement Accuracy</td><td>±0.5 μm</td></tr>
+            <tr><td>Supported Illumination</td><td>Brightfield, Darkfield, DIC, Polarized</td></tr>
+            <tr><td>3D Profiling</td><td>Surface height mapping & roughness analysis</td></tr>
+            <tr><td>Image Export</td><td>PNG, TIFF, RAW, PDF report generation</td></tr>
+        </table>
+    </div>
+
+    <!-- WORKFLOW -->
+    <h3 class="section-title">How This Equipment is Used in the Lab</h3>
+
+    <div class="spec-box">
+        <ol>
+            <li><strong>Sample Placement:</strong> The wafer, die, metal piece, or material sample is positioned on the motorized stage.</li>
+            <li><strong>Auto-Focus & Depth Composition:</strong> The system automatically sets focal layers to create a fully focused image.</li>
+            <li><strong>Select Illumination Mode:</strong> Choose from brightfield, darkfield, polarized, or mixed lighting for defects.</li>
+            <li><strong>Measurement & Analysis:</strong> Features like cracks, voids, grain boundaries, particles, and scratches are measured.</li>
+            <li><strong>3D Surface Profiling:</strong> Height differences, roughness, and step heights are captured.</li>
+            <li><strong>Final Report Generation:</strong> The system auto-creates a branded PDF report with annotations.</li>
+        </ol>
+    </div>
+
+    <!-- COMPARISON -->
+    <h3 class="section-title">Comparison With Other Optical Systems</h3>
+
+    <div class="comparison-table">
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>VHX-7000</th>
+                <th>Standard Optical Microscope</th>
+            </tr>
+            <tr>
+                <td>Resolution</td>
+                <td>4K Ultra HD</td>
+                <td>1080p or optical only</td>
+            </tr>
+            <tr>
+                <td>Depth of Field</td>
+                <td>Extremely High (Z-stack)</td>
+                <td>Very Shallow</td>
+            </tr>
+            <tr>
+                <td>Multi-Illumination</td>
+                <td>Yes</td>
+                <td>Limited</td>
+            </tr>
+            <tr>
+                <td>3D Profiling</td>
+                <td>Yes</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>Digital Measurement Tools</td>
+                <td>Advanced</td>
+                <td>Minimal</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- SAFETY -->
+    <h3 class="section-title">Safety & Handling Notes</h3>
+
+    <div class="spec-box">
+        <ul>
+            <li>Do not apply pressure on lenses or camera units.</li>
+            <li>Ensure samples are clean before placing on the stage.</li>
+            <li>Follow ESD protocols for semiconductor wafers.</li>
+            <li>Shut down the illumination system after sessions to prevent LED aging.</li>
+            <li>Always log your usage time for traceability.</li>
+        </ul>
+    </div>
+
+    <!-- RELATED EQUIPMENT -->
+    <h3 class="section-title">Related Equipment</h3>
+
+    <div class="spec-box">
+        <ul>
+            <li>Olympus LEXT OLS5000 – Laser Confocal Microscope</li>
+            <li>Zygo NewView 9000 – Optical Profilometer</li>
+            <li>Keyence VK-X3000 – Laser Scanning Microscope</li>
+            <li>Nikon MM-400N – Industrial Measuring Microscope</li>
+        </ul>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    © 2025 Metrology Lab – Equipment Catalogue Platform
+</footer>
+
+</body>
+</html>
