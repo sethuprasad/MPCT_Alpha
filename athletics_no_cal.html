@@ -1,0 +1,2164 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Official Home of NAU Microelectronics Processing, Characterization, and Testing. The powerhouse of semiconductor innovation in Flagstaff.">
+    <meta name="theme-color" content="#002454">
+    <title>NAU MPCT | The Official Home of Microelectronics</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Source+Sans+3:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* * ==========================================
+         * CORE VARIABLES & RESET
+         * ========================================== 
+         */
+        :root {
+            /* Official NAU Colors */
+            --nau-blue: #002454;
+            --nau-blue-dark: #001838;
+            --nau-blue-light: #003a85;
+            --nau-gold: #FAC01A;
+            --nau-gold-dark: #dbb400;
+            --nau-gold-light: #fdd054;
+            --nau-green: #007a33; /* For "Win" or "Active" states */
+            --nau-red: #bb0000;   /* For "Loss" or "Alert" states */
+            
+            /* Neutrals */
+            --white: #ffffff;
+            --gray-50: #f8f9fa;
+            --gray-100: #f1f3f5;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-400: #ced4da;
+            --gray-500: #adb5bd;
+            --gray-600: #6c757d;
+            --gray-700: #495057;
+            --gray-800: #343a40;
+            --gray-900: #212529;
+            --black: #000000;
+
+            /* Thematic Variables */
+            --bg-body: var(--white);
+            --text-main: var(--nau-blue);
+            --text-muted: var(--gray-600);
+            --border-light: var(--gray-300);
+            
+            /* Spacing */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+            --space-3xl: 64px;
+            --space-4xl: 96px;
+
+            /* Typography */
+            --font-display: 'Oswald', sans-serif;
+            --font-body: 'Source Sans 3', sans-serif;
+            
+            /* UI Elements */
+            --radius-sm: 2px;
+            --radius-md: 4px;
+            --radius-lg: 8px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px rgba(0,0,0,0.15);
+            
+            /* Transitions */
+            --trans-fast: 0.15s ease;
+            --trans-med: 0.3s ease;
+            --trans-slow: 0.5s ease;
+        }
+
+        /* Dark Mode Support (Athletics sites often have a dark mode) */
+        [data-theme="dark"] {
+            --bg-body: #0b121f;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --gray-50: #1a202c;
+            --gray-100: #171923;
+            --gray-200: #2d3748;
+            --gray-800: #cbd5e0;
+            --white: #0f172a;
+            --nau-blue: #1e3a8a; /* Lighter blue for dark mode visibility */
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: var(--space-md);
+            letter-spacing: 0.02em;
+        }
+
+        h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+        h2 { font-size: clamp(2rem, 4vw, 3.5rem); }
+        h3 { font-size: clamp(1.5rem, 3vw, 2.5rem); }
+        h4 { font-size: 1.5rem; }
+        h5 { font-size: 1.25rem; }
+
+        p {
+            margin-bottom: var(--space-md);
+            max-width: 70ch;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: color var(--trans-fast);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* * ==========================================
+         * UTILITIES
+         * ========================================== 
+         */
+        .container {
+            width: 100%;
+            max-width: 1400px; /* Wide sports style layout */
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+            position: relative; /* Crucial for sitting on top of overlays */
+            z-index: 2;
+        }
+
+        .container-fluid {
+            width: 100%;
+            padding: 0 var(--space-md);
+            position: relative;
+            z-index: 2;
+        }
+
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .text-uppercase { text-transform: uppercase; }
+        .text-gold { color: var(--nau-gold); }
+        .text-blue { color: var(--nau-blue); }
+        .text-white { color: #fff; }
+        
+        .bg-blue { background-color: var(--nau-blue); color: #fff; }
+        .bg-gold { background-color: var(--nau-gold); color: var(--nau-blue); }
+        .bg-dark { background-color: var(--black); color: #fff; }
+        .bg-gray { background-color: var(--gray-100); }
+
+        .d-flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .align-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .gap-sm { gap: var(--space-sm); }
+        .gap-md { gap: var(--space-md); }
+        .gap-lg { gap: var(--space-lg); }
+
+        .grid { display: grid; }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+        @media (max-width: 1024px) {
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .grid-3, .grid-2 { grid-template-columns: 1fr; }
+            .grid-4 { grid-template-columns: 1fr; }
+        }
+
+        .section-padding { padding: var(--space-3xl) 0; }
+        .relative { position: relative; }
+        .absolute { position: absolute; }
+        .hidden { display: none; }
+
+        /* * ==========================================
+         * BUTTONS & COMPONENTS
+         * ========================================== 
+         */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.125rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all var(--trans-med);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        /* Slanted effect typical in sports design */
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.2);
+            transform: skewX(-20deg);
+            transition: left var(--trans-med);
+            z-index: -1;
+        }
+
+        .btn:hover::after {
+            left: 100%;
+            transition: left 0.5s;
+        }
+
+        .btn-primary {
+            background-color: var(--nau-gold);
+            color: var(--nau-blue);
+            border-color: var(--nau-gold);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--white);
+            color: var(--nau-blue);
+            border-color: var(--white);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--white);
+            border-color: var(--white);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--nau-blue);
+        }
+
+        .btn-secondary {
+            background-color: var(--nau-blue);
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--nau-blue-light);
+        }
+
+        .section-header {
+            border-bottom: 4px solid var(--nau-gold);
+            margin-bottom: var(--space-lg);
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding-bottom: var(--space-sm);
+        }
+
+        .section-header h2 {
+            margin-bottom: 0;
+            color: var(--nau-blue);
+            font-size: 2.5rem;
+            font-style: italic; /* Speed/Motion look */
+        }
+
+        .section-header .see-all {
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--nau-blue);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .section-header .see-all:hover {
+            color: var(--nau-gold);
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            transition: transform var(--trans-med), box-shadow var(--trans-med);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--nau-gold);
+        }
+
+        .card-img-top {
+            position: relative;
+            overflow: hidden;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background-color: var(--gray-200);
+        }
+
+        .card-img-top img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--trans-slow);
+        }
+
+        .card:hover .card-img-top img {
+            transform: scale(1.05);
+        }
+
+        .card-body {
+            padding: var(--space-md);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-meta {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-sm);
+            color: var(--nau-blue);
+        }
+
+        .card-text {
+            color: var(--gray-700);
+            font-size: 0.95rem;
+            margin-bottom: var(--space-md);
+        }
+
+        /* * ==========================================
+         * HEADER & NAVIGATION
+         * ========================================== 
+         */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--nau-blue);
+            color: var(--white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .top-bar {
+            background-color: var(--nau-blue-dark);
+            font-size: 0.85rem;
+            padding: var(--space-xs) 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-links {
+            display: flex;
+            gap: var(--space-md);
+        }
+        
+        .top-links a {
+            font-weight: 600;
+            opacity: 0.8;
+        }
+        
+        .top-links a:hover {
+            opacity: 1;
+            color: var(--nau-gold);
+        }
+
+        .main-nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            height: 100%;
+            padding: 10px 0;
+        }
+
+        .brand-logo img {
+            height: 100%;
+            width: auto;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+
+        .brand-text .nau {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 2rem;
+            letter-spacing: 0.05em;
+            color: var(--white);
+        }
+
+        .brand-text .dept {
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--nau-gold);
+            font-weight: 700;
+        }
+
+        /* Mega Menu */
+        .nav-menu {
+            display: flex;
+            height: 100%;
+            align-items: stretch;
+        }
+
+        .nav-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            padding: 0 var(--space-md);
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            color: var(--white);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            border-bottom: 4px solid transparent;
+            transition: all var(--trans-fast);
+        }
+
+        .nav-link:hover {
+            color: var(--nau-gold);
+            background-color: rgba(255,255,255,0.05);
+            border-bottom-color: var(--nau-gold);
+        }
+
+        /* Mobile Toggle */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+        }
+        
+        @media (max-width: 1024px) {
+            .nav-menu { display: none; }
+            .mobile-toggle { display: block; }
+        }
+
+        /* * ==========================================
+         * BAR
+         * ========================================== 
+         */
+        .lab-ticker {
+            background-color: var(--white);
+            border-bottom: 1px solid var(--gray-300);
+            height: 50px;
+            display: flex;
+            overflow: hidden;
+            position: relative;
+            z-index: 900;
+        }
+
+        .ticker-label {
+            background-color: var(--nau-gold);
+            color: var(--nau-blue);
+            padding: 0 var(--space-lg);
+            display: flex;
+            align-items: center;
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        
+        .ticker-label::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            top: 0;
+            border-top: 50px solid var(--nau-gold);
+            border-right: 20px solid transparent;
+            width: 0;
+            height: 0;
+        }
+
+        .ticker-content {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: var(--white);
+        }
+
+        .ticker-wrapper {
+            display: flex;
+            animation: ticker 40s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            padding: 0 var(--space-xl);
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--nau-blue);
+            border-right: 1px solid var(--gray-200);
+            text-transform: uppercase;
+        }
+
+        .ticker-item strong {
+            margin-right: 10px;
+            color: var(--black);
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-dot.green { background-color: var(--nau-green); box-shadow: 0 0 5px var(--nau-green); }
+        .status-dot.red { background-color: var(--nau-red); }
+        .status-dot.yellow { background-color: var(--nau-gold); }
+
+        /* * ==========================================
+         * HERO SLIDER
+         * ========================================== 
+         */
+        .hero {
+            position: relative;
+            height: 80vh;
+            min-height: 600px;
+            max-height: 900px;
+            overflow: hidden;
+            background-color: var(--black);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            z-index: 1;
+        }
+
+        .slide.active { opacity: 1; z-index: 2; }
+
+        .slide-bg-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide-bg-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 36, 84, 0.95) 0%, rgba(0, 36, 84, 0.4) 60%, rgba(0, 36, 84, 0.2) 100%);
+            z-index: 1;
+        }
+
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-bottom: var(--space-4xl);
+            z-index: 2; /* Sit on top of overlay */
+        }
+
+        .slide-content .container {
+            position: relative;
+        }
+
+        .slide-tag {
+            background-color: var(--nau-gold);
+            color: var(--nau-blue);
+            display: inline-block;
+            padding: 4px 12px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: var(--space-sm);
+            transform: skewX(-15deg);
+        }
+        
+        .slide-tag span { display: block; transform: skewX(15deg); }
+
+        .slide-title {
+            color: var(--white);
+            font-size: clamp(3rem, 6vw, 6rem);
+            line-height: 0.9;
+            text-transform: uppercase;
+            font-style: italic;
+            margin-bottom: var(--space-md);
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            max-width: 900px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease 0.3s;
+        }
+
+        .slide.active .slide-title {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-desc {
+            color: var(--gray-300);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: var(--space-lg);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease 0.5s;
+        }
+        
+        .slide.active .slide-desc { opacity: 1; transform: translateY(0); }
+        .slide.active .btn { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
+
+        .slider-controls {
+            position: absolute;
+            bottom: var(--space-lg);
+            right: var(--space-lg);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .slider-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .slider-btn:hover {
+            background: var(--nau-gold);
+            color: var(--nau-blue);
+            border-color: var(--nau-gold);
+        }
+
+        /* * ==========================================
+         * QUICK ACTION BAR 
+         * ========================================== 
+         */
+        .quick-actions {
+            background-color: var(--nau-blue);
+            padding: var(--space-lg) 0;
+            margin-top: -4px; /* Fix gap */
+            border-bottom: 4px solid var(--nau-gold);
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px; /* Gap for border effect */
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .action-item {
+            background-color: var(--nau-blue);
+            padding: var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            transition: background 0.3s;
+            cursor: pointer;
+            height: 100%;
+        }
+
+        .action-item:hover {
+            background-color: var(--nau-blue-light);
+        }
+
+        .action-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: var(--space-sm);
+            fill: var(--nau-gold);
+        }
+
+        .action-text {
+            color: var(--white);
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .action-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* * ==========================================
+         * NEWS / STORIES GRID
+         * ========================================== 
+         */
+        .news-section {
+            padding: var(--space-3xl) 0;
+            background-color: var(--white);
+            /* Update: Added Parallax Background with Light Overlay */
+            background-image: url('https://images.unsplash.com/photo-1564981797816-1043664bf78d?q=80&w=1974&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .news-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.95); /* Strong white overlay */
+            z-index: 1;
+        }
+
+        .featured-story {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+        }
+
+        .featured-img {
+            position: relative;
+            height: 100%;
+            min-height: 400px;
+        }
+
+        .featured-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-content {
+            padding: var(--space-xl);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-tag {
+            color: var(--nau-gold);
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: var(--space-sm);
+            font-size: 1.1rem;
+        }
+
+        .featured-title {
+            font-size: 3rem;
+            color: var(--nau-blue);
+            margin-bottom: var(--space-md);
+            line-height: 1;
+        }
+        
+        .featured-excerpt {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+            margin-bottom: var(--space-lg);
+        }
+
+        @media (max-width: 900px) {
+            .featured-story { grid-template-columns: 1fr; }
+            .featured-img { min-height: 250px; }
+        }
+
+        /* * ==========================================
+         * FACULTY 
+         * ========================================== 
+         */
+        .roster-section {
+            background-color: var(--nau-blue);
+            padding: var(--space-4xl) 0;
+            position: relative;
+            overflow: hidden;
+            /* Update: Added Parallax Background with Dark Blue Overlay */
+            background-image: url('https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .roster-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 36, 84, 0.85); /* Deep NAU Blue overlay */
+            z-index: 1;
+        }
+
+        .roster-section .section-header h2 { color: var(--white); }
+        .roster-section .section-header { border-bottom-color: rgba(255,255,255,0.2); }
+        .roster-section .section-header .see-all { color: var(--nau-gold); }
+
+        .player-card {
+            background: transparent;
+            position: relative;
+            cursor: pointer;
+            group: 'roster';
+            perspective: 1000px;
+        }
+
+        .player-inner {
+            background: var(--white);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border-bottom: 4px solid var(--nau-gold);
+        }
+        
+        .player-card:hover .player-inner {
+            transform: translateY(-10px);
+        }
+
+        .player-img-container {
+            height: 350px;
+            background: linear-gradient(to bottom, #f0f0f0, #d9d9d9);
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .player-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            transition: transform 0.4s;
+        }
+        
+        .player-card:hover .player-img { transform: scale(1.05); }
+
+        .player-info {
+            padding: var(--space-md);
+            background: var(--white);
+            position: relative;
+            z-index: 2;
+        }
+
+        .player-number {
+            position: absolute;
+            top: -30px;
+            right: 15px;
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--nau-gold);
+            text-shadow: 2px 2px 0px var(--nau-blue);
+            line-height: 1;
+        }
+
+        .player-name {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--nau-blue);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .player-position {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        /* * ==========================================
+         * MULTIMEDIA / VIDEO
+         * ========================================== 
+         */
+        .multimedia-section {
+            background: var(--black);
+            padding: 0;
+            position: relative;
+            /* Update: Added texture background */
+            background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            min-height: 600px;
+            position: relative;
+            z-index: 2; /* Sit above background */
+        }
+
+        .main-video-stage {
+            position: relative;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .main-video-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: var(--space-xl);
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        .play-btn-large {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(250, 192, 26, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 3;
+            pointer-events: auto;
+        }
+        
+        .play-btn-large:hover { transform: translate(-50%, -50%) scale(1.1); background: var(--nau-gold); }
+        .play-btn-large svg { width: 30px; height: 30px; fill: var(--nau-blue); margin-left: 5px; }
+
+        .playlist-sidebar {
+            background: rgba(17, 24, 39, 0.95); /* Slight transparency */
+            padding: var(--space-lg);
+            overflow-y: auto;
+            max-height: 600px;
+            border-left: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .playlist-title {
+            color: var(--white);
+            border-bottom: 1px solid var(--gray-700);
+            padding-bottom: var(--space-md);
+            margin-bottom: var(--space-md);
+            font-size: 1.2rem;
+        }
+
+        .playlist-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: var(--space-md);
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .playlist-item:hover { background: rgba(255,255,255,0.05); }
+
+        .playlist-thumb {
+            width: 100px;
+            height: 60px;
+            background: var(--gray-800);
+            border-radius: 4px;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        
+        .playlist-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+        .playlist-info h4 {
+            color: var(--white);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            line-height: 1.2;
+            font-family: var(--font-body);
+        }
+
+        .playlist-info span {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+        
+        @media (max-width: 900px) {
+            .media-grid { grid-template-columns: 1fr; }
+            .main-video-stage { min-height: 300px; }
+            .playlist-sidebar { max-height: 400px; }
+        }
+
+        /* * ==========================================
+         * FOOTER
+         * ========================================== 
+         */
+        .site-footer {
+            background-color: var(--nau-blue);
+            color: var(--white);
+            padding-top: var(--space-4xl);
+            border-top: 10px solid var(--nau-gold);
+            position: relative;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: var(--space-2xl);
+            margin-bottom: var(--space-3xl);
+        }
+
+        .footer-brand img {
+            width: 250px;
+            margin-bottom: var(--space-md);
+        }
+
+        .footer-col h4 {
+            color: var(--nau-gold);
+            font-size: 1.2rem;
+            margin-bottom: var(--space-lg);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--white);
+        }
+
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: rgba(255,255,255,0.7); font-weight: 500; font-size: 0.95rem; }
+        .footer-links a:hover { color: var(--white); padding-left: 5px; }
+
+        .footer-bottom {
+            background-color: var(--nau-blue-dark);
+            padding: var(--space-lg) 0;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+        }
+
+        .social-row {
+            display: flex;
+            gap: 15px;
+            margin-top: var(--space-lg);
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover { background: var(--nau-gold); color: var(--nau-blue); }
+        .social-icon svg { width: 18px; height: 18px; fill: currentColor; }
+
+        @media (max-width: 900px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 600px) {
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+
+        /* * ==========================================
+         * ANIMATIONS
+         * ========================================== 
+         */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in { animation: fadeIn 0.6s ease forwards; }
+
+        /* * ==========================================
+         * ADDED CAROUSEL STYLES
+         * ========================================== 
+         */
+        .card-wrapper {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 10px 0 40px 0;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .card-wrapper::-webkit-scrollbar { display: none; }
+        
+        .equipment-card {
+            background: var(--white);
+            min-width: 310px;
+            max-width: 310px;
+            height: 520px;
+            border-radius: var(--radius-md);
+            padding: 25px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            scroll-snap-align: center;
+            transition: all var(--trans-med);
+            position: relative;
+            border-top: 4px solid transparent;
+            border: 1px solid var(--border-light);
+        }
+        .equipment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-top: 4px solid var(--nau-blue);
+        }
+        /* Tags */
+        .tag {
+            font-family: var(--font-display);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--nau-blue);
+            background-color: var(--nau-gold);
+            padding: 4px 10px;
+            border-radius: 2px;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .tag.blue { background-color: var(--nau-blue); color: var(--white); }
+        .tag.grey { background-color: var(--gray-600); color: var(--white); }
+        .tag.green { background-color: var(--nau-green); color: var(--white); }
+        .tag.red { background-color: var(--nau-red); color: var(--white); }
+        .tag.teal { background-color: #0d9488; color: var(--white); }
+        /* Status Badge */
+        .status-badge {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 2px;
+            text-transform: uppercase;
+            border: 1px solid transparent;
+        }
+        .status-badge.available { background-color: #dcfce7; color: #166534; border-color: #bbf7d0; }
+        .status-badge.limited { background-color: #fef9c3; color: #854d0e; border-color: #fde047; }
+        .status-badge.maintenance { background-color: #fee2e2; color: #991b1b; border-color: #fecaca; }
+        .status-badge.unavailable { background-color: #f3f4f6; color: #6b7280; border-color: #d1d5db; }
+        /* Card Elements */
+        .equipment-card .card-title {
+            font-family: var(--font-display);
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--nau-blue);
+            margin-top: 15px;
+            margin-bottom: 0;
+            text-transform: uppercase;
+        }
+        .image-container {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 0;
+        }
+        .equipment-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-weight: 500;
+            font-size: 12px;
+            text-align: center;
+            border: 4px solid var(--gray-50);
+        }
+        .specs {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-800);
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+        .specs .small {
+            color: var(--gray-600);
+            font-size: 13px;
+            display: block;
+            margin-top: 2px;
+            font-weight: 400;
+        }
+        /* Buttons */
+        .action-row {
+            display: flex;
+            gap: 8px;
+            margin-top: auto;
+        }
+        .action-btn {
+            font-family: var(--font-display);
+            border: none;
+            padding: 8px 0;
+            border-radius: 2px;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+        .book-btn {
+            background-color: var(--nau-gold);
+            color: var(--nau-blue);
+        }
+        .book-btn:hover { background-color: var(--nau-gold-dark); }
+        .about-btn {
+            background-color: transparent;
+            color: var(--nau-blue);
+            border: 1px solid var(--nau-blue);
+        }
+        .about-btn:hover { background-color: var(--gray-100); }
+        .book-btn.disabled {
+            background-color: var(--gray-400);
+            color: var(--white);
+            cursor: default;
+            pointer-events: none;
+        }
+        /* Nav Btns */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0,0,0,0.1);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 22px;
+            color: var(--nau-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .nav-btn:hover { transform: translateY(-50%) scale(1.1); }
+        .nav-btn.left { left: -15px; }
+        .nav-btn.right { right: -15px; }
+        .carousel-wrapper {
+            position: relative;
+            padding: 0 10px;
+        }
+
+        /* * ==========================================
+         * ADDED METRICS STYLES (For New Lab Section)
+         * ========================================== 
+         */
+         .stats-section {
+            background-color: var(--gray-100);
+            padding: var(--space-3xl) 0;
+            background-image: url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(248, 249, 250, 0.92);
+            z-index: 1;
+        }
+        .dashboard-container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .metrics-panel {
+            background: var(--white);
+            padding: var(--space-xl);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            border-top: 5px solid var(--nau-blue);
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+        .metric-box {
+            text-align: center;
+            padding: var(--space-md);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            transition: transform var(--trans-fast);
+        }
+        .metric-box:hover {
+            transform: translateY(-3px);
+            border-color: var(--nau-gold);
+        }
+        .metric-value {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--nau-blue);
+            line-height: 1;
+        }
+        .metric-label {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            color: var(--black);
+            margin: 5px 0;
+        }
+        .metric-sub {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            font-family: var(--font-body);
+        }
+        @media (max-width: 768px) {
+            .metrics-grid { grid-template-columns: 1fr; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-links">
+                    <a href="#">NAU.edu</a>
+                    <a href="#">Engineering Dept</a>
+                    <a href="#">Cleanroom Safety</a>
+                    <a href="#">Directory</a>
+                </div>
+                <div class="top-social">
+                    <span style="opacity: 0.7; font-weight: 600; font-size: 0.8rem;">FOLLOW THE LAB</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-nav-container container">
+            <a href="index.html" class="brand-logo">   
+                <div class="brand-text">
+                    <span class="nau">NORTHERN ARIZONA</span>
+                    <span class="dept">MPCT LAB</span>
+                </div>
+            </a>
+
+            <button class="mobile-toggle" aria-label="Open Menu">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18"/>
+                </svg>
+            </button>
+
+            <nav class="nav-menu">
+                <div class="nav-item"><a href="Athletics.html" class="nav-link">Home</a></div>
+                <div class="nav-item"><a href="calendar2.html" class="nav-link">Calendar</a></div>
+                <div class="nav-item"><a href="calendar.html" class="nav-link">Calendar2</a></div>
+                <div class="nav-item"><a href="#" class="nav-link">Faculty</a></div>
+                <div class="nav-item"><a href="#" class="nav-link">Facilities</a></div>
+                <div class="nav-item"><a href="#" class="nav-link text-gold">Contact</a></div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="lab-ticker">
+        <div class="ticker-label">Lab Center</div>
+        <div class="ticker-content">
+            <div class="ticker-wrapper">
+                <div class="ticker-item"><span class="status-dot green"></span> <strong>Cleanroom:</strong> Operational</div>
+                <div class="ticker-item"><span class="status-dot yellow"></span> <strong>SEM-2:</strong> Maintenance (ETA 2:00 PM)</div>
+                <div class="ticker-item"><span class="status-dot green"></span> <strong>Lithography:</strong> 98% Yield</div>
+                <div class="ticker-item"><strong>New Paper:</strong> "Thin Film Stress Analysis" by Dr. Smith</div>
+                <div class="ticker-item"><span class="status-dot green"></span> <strong>Mask Aligner:</strong> Available</div>
+                <div class="ticker-item"><span class="status-dot red"></span> <strong>Furnace 4:</strong> Offline</div>
+                <div class="ticker-item"><strong>Upcoming:</strong> Grad Student Defense - Friday 3PM</div>
+                <div class="ticker-item"><span class="status-dot green"></span> <strong>Cleanroom:</strong> Operational</div>
+                <div class="ticker-item"><span class="status-dot yellow"></span> <strong>SEM-2:</strong> Maintenance (ETA 2:00 PM)</div>
+                <div class="ticker-item"><span class="status-dot green"></span> <strong>Lithography:</strong> 98% Yield</div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section class="hero" id="heroSlider">
+            <div class="slide slide-1 active">
+                <div class="slide-bg-container">
+                    <img src="Wafer.webp" class="slide-bg-img" alt="Advanced Packaging">
+                    <div class="slide-overlay"></div>
+                </div>
+                <div class="slide-content">
+                    <div class="container">
+                        <div class="slide-tag"><span>Breaking News</span></div>
+                        <h1 class="slide-title">Engineering The Future<br>One Wafer at a Time</h1>
+                        <p class="slide-desc">NAU's Microelectronics program secures $15M grant for advanced packaging research facilities.</p>
+                        <a href="#" class="btn btn-primary">Read The Full Story</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide slide-2">
+                <div class="slide-bg-container">
+                    <img src="Students_cleanroom.webp" class="slide-bg-img" alt="Cleanroom">
+                    <div class="slide-overlay"></div>
+                </div>
+                <div class="slide-content">
+                    <div class="container">
+                        <div class="slide-tag"><span>Facilities Update</span></div>
+                        <h1 class="slide-title">New Class 200 Cleanroom<br>Now Operational</h1>
+                        <p class="slide-desc">State-of-the-art lithography and etching tools are ready for student and faculty use.</p>
+                        <a href="#" class="btn btn-primary">Take the Virtual Tour</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide slide-3">
+                <div class="slide-bg-container">
+                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop" class="slide-bg-img" alt="Students">
+                    <div class="slide-overlay"></div>
+                </div>
+                <div class="slide-content">
+                    <div class="container">
+                        <div class="slide-tag"><span>Student Success</span></div>
+                        <h1 class="slide-title">Championship Performance<br>In Characterization</h1>
+                        <p class="slide-desc">Our grad students took top prize at the International Semiconductor Conference.</p>
+                        <a href="#" class="btn btn-primary">Meet the Team</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slider-controls">
+                <button class="slider-btn" id="prevSlide" aria-label="Previous Slide">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <button class="slider-btn" id="nextSlide" aria-label="Next Slide">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+            </div>
+        </section>
+
+        <section class="quick-actions">
+            <div class="container">
+                <div class="action-grid">
+                    <div class="action-item">
+                        <svg class="action-icon" viewBox="0 0 24 24">
+                            <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/>
+                        </svg>
+                        <span class="action-text">Reserve Equipment</span>
+                    </div>
+                    <div class="action-item">
+                        <svg class="action-icon" viewBox="0 0 24 24">
+                            <path d="M12 2L1 21h22M12 6l7.53 13H4.47M11 10v4h2v-4m-2 6v2h2v-2"/>
+                        </svg>
+                        <span class="action-text">Safety Protocols</span>
+                    </div>
+                    <div class="action-item">
+                        <svg class="action-icon" viewBox="0 0 24 24">
+                            <path d="M12 11c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 2c0-3.31-2.69-6-6-6s-6 2.69-6 6c0 2.22 1.21 4.15 3 5.19l1-1.74c-1.19-.7-2-1.97-2-3.45 0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.48-.81 2.75-2 3.45l1 1.74c1.79-1.04 3-2.97 3-5.19zM12 3C6.48 3 2 7.48 2 13c0 3.7 2.01 6.92 4.99 8.65l1-1.73C5.61 18.53 4 15.96 4 13c0-4.42 3.58-8 8-8s8 3.58 8 8c0 2.96-1.61 5.53-4 6.92l1 1.73c2.99-1.73 5-4.95 5-8.65 0-5.52-4.48-10-10-10z"/>
+                        </svg>
+                        <span class="action-text">Lab Status</span>
+                    </div>
+                    <div class="action-item">
+                        <svg class="action-icon" viewBox="0 0 24 24">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                        <span class="action-text">Join The Team</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding bg-gray">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Featured Equipment</h2>
+                    <a href="scroll.html" class="see-all">View All Equipment &rarr;</a>
+                </div>
+                
+                <div class="carousel-wrapper">
+                    <button class="nav-btn left" onclick="scrollGrid(-340)">&#8249;</button>
+                    <button class="nav-btn right" onclick="scrollGrid(340)">&#8250;</button>
+
+                    <div class="card-wrapper" id="cardContainer">
+                        
+                        <div class="equipment-card">
+                            <div>
+                                <div class="d-flex justify-between align-center">
+                                    <div class="tag">Metrology</div>
+                                    <span class="status-badge available">Available</span>
+                                </div>
+                                <h3 class="card-title">B2 Atomic Force Microscope</h3>
+                            </div>
+                            <div class="image-container">
+                                <img src="B2_AFM.png" class="equipment-img" alt="AFM">
+                            </div>
+                            <div class="specs">Room 145<span class="small">Nano-surface analysis</span></div>
+                            <div class="action-row">
+                                <a href="AFM_details.html" class="action-btn about-btn">About</a>
+                                <a href="Booking1.html" class="action-btn book-btn">Book</a>
+                            </div>
+                        </div>
+
+                        <div class="equipment-card">
+                            <div>
+                                <div class="d-flex justify-between align-center">
+                                    <div class="tag blue">Deposition</div>
+                                    <span class="status-badge available">Available</span>
+                                </div>
+                                <h3 class="card-title">High-Vacuum Sputter System</h3>
+                            </div>
+                            <div class="image-container">
+                                <img src="Sputtering.webp" class="equipment-img" alt="Sputter">
+                            </div>
+                            <div class="specs">Room 145<span class="small">Thin film deposition</span></div>
+                            <div class="action-row">
+                                <button class="action-btn about-btn">About</button>
+                                <a href="Booking1.html" class="action-btn book-btn">Book</a>
+                            </div>
+                        </div>
+
+                        <div class="equipment-card">
+                            <div>
+                                <div class="d-flex justify-between align-center">
+                                    <div class="tag blue">Lithography</div>
+                                    <span class="status-badge available">Available</span>
+                                </div>
+                                <h3 class="card-title">UV Mask<br>Aligner</h3>
+                            </div>
+                            <div class="image-container">
+                                <img src="Aligner.jpg" class="equipment-img" alt="Mask Aligner">
+                            </div>
+                            <div class="specs">Yellow Room<span class="small">Micron precision</span></div>
+                            <div class="action-row">
+                                <button class="action-btn about-btn">About</button>
+                                <a href="Booking1.html" class="action-btn book-btn">Book</a>
+                            </div>
+                        </div>
+
+                        <div class="equipment-card">
+                            <div>
+                                <div class="d-flex justify-between align-center">
+                                    <div class="tag blue">Lithography</div>
+                                    <span class="status-badge available">Available</span>
+                                </div>
+                                <h3 class="card-title">Programmable Spin Coater</h3>
+                            </div>
+                            <div class="image-container">
+                                <img src="coater.webp" class="equipment-img" alt="Spin Coater">
+                            </div>
+                            <div class="specs">Fume Hood 2<span class="small">Photoresist application</span></div>
+                            <div class="action-row">
+                                <button class="action-btn about-btn">About</button>
+                                <a href="Booking1.html" class="action-btn book-btn">Book</a>
+                            </div>
+                        </div>
+
+                        <div class="equipment-card">
+                            <div>
+                                <div class="d-flex justify-between align-center">
+                                    <div class="tag green">Packaging</div>
+                                    <span class="status-badge available">Available</span>
+                                </div>
+                                <h3 class="card-title">Wedge Wire<br>Bonder</h3>
+                            </div>
+                            <div class="image-container">
+                                <img src="bond.jpg" class="equipment-img" alt="Wire Bonder">
+                            </div>
+                            <div class="specs">Room 145<span class="small">Chip interconnects</span></div>
+                            <div class="action-row">
+                                <button class="action-btn about-btn">About</button>
+                                <a href="Booking1.html" class="action-btn book-btn">Book</a>
+                            </div>
+                        </div>
+
+                        <div class="equipment-card">
+                            <div>
+                                <div class="d-flex justify-between align-center">
+                                    <div class="tag">Metrology</div>
+                                    <span class="status-badge limited">Limited Access</span>
+                                </div>
+                                <h3 class="card-title">Stylus<br>Profilometer</h3>
+                            </div>
+                            <div class="image-container">
+                                <img src="bruker.png" class="equipment-img" alt="Profilometer">
+                            </div>
+                            <div class="specs">Room 145<span class="small">Step height measurement</span></div>
+                            <div class="action-row">
+                                <button class="action-btn about-btn">About</button>
+                                <a href="Booking1.html" class="action-btn book-btn">Book</a>
+                            </div>
+                        </div>
+
+                        <div class="equipment-card">
+                            <div>
+                                <div class="d-flex justify-between align-center">
+                                    <div class="tag grey">Etching</div>
+                                    <span class="status-badge maintenance">Maintenance</span>
+                                </div>
+                                <h3 class="card-title">O2 Plasma<br>Cleaner</h3>
+                            </div>
+                            <div class="image-container">
+                                <img src="plasma.jpg" class="equipment-img" alt="Plasma Cleaner">
+                            </div>
+                            <div class="specs">Room 142<span class="small">Surface activation</span></div>
+                            <div class="action-row">
+                                <button class="action-btn about-btn">About</button>
+                                <button class="action-btn book-btn disabled">Service</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Lab Performance Metrics</h2>
+                    <a href="#" class="see-all">Full Report &rarr;</a>
+                </div>
+                
+                <div class="dashboard-container">
+                    <div class="metrics-panel">
+                        <div style="display:flex; justify-content:space-between; border-bottom:1px solid #eee; padding-bottom:10px;">
+                            <span style="font-family:var(--font-display); font-size:1.2rem; color:var(--nau-blue); font-weight:700;">Operational Snapshot</span>
+                            <span style="font-size:0.8rem; color:#666; font-weight:600;">UPDATED: JAN 2026</span>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-box">
+                                <span class="metric-value">54</span>
+                                <span class="metric-label">Active Instruments</span>
+                                <div class="metric-sub">100% Operational</div>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-value">12</span>
+                                <span class="metric-label">New Publications</span>
+                                <div class="metric-sub">Fall 2025 Semester</div>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-value">250</span>
+                                <span class="metric-label">Students Trained</span>
+                                <div class="metric-sub">Year to Date</div>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-value">100</span>
+                                <span class="metric-label">Cleanroom Class</span>
+                                <div class="metric-sub">ISO 5 Certified</div>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-value">450</span>
+                                <span class="metric-label">Wafer Throughput</span>
+                                <div class="metric-sub">Per Month (Avg)</div>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-value">3</span>
+                                <span class="metric-label">Industry Partners</span>
+                                <div class="metric-sub">Sponsored Research</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="news-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Top Stories</h2>
+                    <a href="#" class="see-all">News Archive &rarr;</a>
+                </div>
+
+                <div class="featured-story">
+                    <div class="featured-img">
+                        <img src="https://images.unsplash.com/photo-1591522810850-58128c5fb089?q=80&w=2070&auto=format&fit=crop" alt="Students in Cleanroom">
+                    </div>
+                    <div class="featured-content">
+                        <span class="featured-tag">Student Spotlight</span>
+                        <h3 class="featured-title">Undergrads Develop Novel Testing Method for 5G Chips</h3>
+                        <p class="featured-excerpt">A team of senior engineering students has published findings that could reduce testing time by 30% for high-frequency microchips.</p>
+                        <a href="#" class="btn btn-secondary">Read Full Report</a>
+                    </div>
+                </div>
+
+                <div class="grid grid-3 gap-lg">
+                    <article class="card">
+                        <div class="card-img-top">
+                            <img src="https://images.unsplash.com/photo-1580584126903-c17d41830450?q=80&w=2067&auto=format&fit=crop" alt="Microscope view">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-meta">
+                                <span class="text-gold">Research</span> • 2 Days Ago
+                            </div>
+                            <h4 class="card-title">New SEM Installation Complete</h4>
+                            <p class="card-text">The new Scanning Electron Microscope offers 10x better resolution for nano-scale characterization.</p>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-img-top">
+                            <img src="https://images.unsplash.com/photo-1517420704952-d9f39714cdd1?q=80&w=2070&auto=format&fit=crop" alt="Lab Meeting">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-meta">
+                                <span class="text-gold">Community</span> • 5 Days Ago
+                            </div>
+                            <h4 class="card-title">STEM Day at NAU</h4>
+                            <p class="card-text">Faculty welcomed 200 local high school students to tour the MPCT facilities and learn about chips.</p>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-img-top">
+                            <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop" alt="Wafer Hand">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-meta">
+                                <span class="text-gold">Industry</span> • 1 Week Ago
+                            </div>
+                            <h4 class="card-title">Partnership with Microchip Tech</h4>
+                            <p class="card-text">A new internship pipeline guarantees summer positions for top performing MPCT students.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="roster-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Meet the Faculty</h2>
+                    <a href="#" class="see-all"> Directory &rarr;</a>
+                </div>
+
+                <div class="grid grid-4 gap-md">
+                    <div class="player-card">
+                        <div class="player-inner">
+                            <div class="player-img-container">
+                                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop" class="player-img" alt="Faculty">
+                            </div>
+                            <div class="player-info">
+                                <div class="player-number">01</div>
+                                <h3 class="player-name">Dr. X</h3>
+                                <div class="player-position">Head of Processing</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="player-card">
+                        <div class="player-inner">
+                            <div class="player-img-container">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop" class="player-img" alt="Faculty">
+                            </div>
+                            <div class="player-info">
+                                <div class="player-number">02</div>
+                                <h3 class="player-name">Dr. Y</h3>
+                                <div class="player-position">Characterization Lead</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="player-card">
+                        <div class="player-inner">
+                            <div class="player-img-container">
+                                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop" class="player-img" alt="Faculty">
+                            </div>
+                            <div class="player-info">
+                                <div class="player-number">03</div>
+                                <h3 class="player-name">Dr. Z</h3>
+                                <div class="player-position">Testing & Reliability</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="player-card">
+                        <div class="player-inner">
+                            <div class="player-img-container">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" class="player-img" alt="Faculty">
+                            </div>
+                            <div class="player-info">
+                                <div class="player-number">04</div>
+                                <h3 class="player-name">A. K</h3>
+                                <div class="player-position">Lab Manager</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="multimedia-section">
+            <div class="container-fluid">
+                <div class="media-grid">
+                    <div class="main-video-stage">
+                        <img src="https://images.unsplash.com/photo-1581093588402-4858642d5502?q=80&w=2070&auto=format&fit=crop" style="width:100%; height:100%; object-fit:cover; opacity: 0.6;" alt="Video Thumb">
+                        <div class="main-video-overlay">
+                            <span class="text-gold text-uppercase" style="font-weight: 700; letter-spacing: 2px;">Featured Video</span>
+                            <h2 class="text-white" style="font-size: 2.5rem; margin-top: 10px;">Inside The Cleanroom: A Day in the Life</h2>
+                        </div>
+                        <div class="play-btn-large">
+                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                    
+                    <div class="playlist-sidebar">
+                        <h3 class="playlist-title">Lab Highlights</h3>
+                        
+                        <div class="playlist-item">
+                            <div class="playlist-thumb">
+                                <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=2025&auto=format&fit=crop" alt="Thumb">
+                            </div>
+                            <div class="playlist-info">
+                                <h4>Lithography Process Explained</h4>
+                                <span>2:45 • Tutorials</span>
+                            </div>
+                        </div>
+
+                        <div class="playlist-item">
+                            <div class="playlist-thumb">
+                                <img src="https://images.unsplash.com/photo-1614935151651-0bea6508db6b?q=80&w=2025&auto=format&fit=crop" alt="Thumb">
+                            </div>
+                            <div class="playlist-info">
+                                <h4>2025 Capstone Symposium</h4>
+                                <span>15:30 • Events</span>
+                            </div>
+                        </div>
+
+                        <div class="playlist-item">
+                            <div class="playlist-thumb">
+                                <img src="https://images.unsplash.com/photo-1621905252507-b35492ccba0b?q=80&w=2025&auto=format&fit=crop" alt="Thumb">
+                            </div>
+                            <div class="playlist-info">
+                                <h4>Safety Training Module 1</h4>
+                                <span>10:00 • Training</span>
+                            </div>
+                        </div>
+
+                        <div class="playlist-item">
+                            <div class="playlist-thumb">
+                                <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=2070&auto=format&fit=crop" alt="Thumb">
+                            </div>
+                            <div class="playlist-info">
+                                <h4>Alumni Success: Intel Careers</h4>
+                                <span>4:15 • Careers</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="NAU.png" style="filter: brightness(0) invert(1);" alt="NAU Logo White">
+                    <p style="color: rgba(255,255,255,0.7); max-width: 300px;">
+                        The Microelectronics Processing, Characterization, and Testing Lab is dedicated to advancing semiconductor education and research in Northern Arizona.
+                    </p>
+                    <div class="social-row">
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>The Lab</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About MPCT</a></li>
+                        <li><a href="#">Facilities Map</a></li>
+                        <li><a href="#">Equipment List</a></li>
+                        <li><a href="#">Safety Manual</a></li>
+                        <li><a href="#">Scheduling</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Academics</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Undergraduate Courses</a></li>
+                        <li><a href="#">Graduate Research</a></li>
+                        <li><a href="#">Certificate Programs</a></li>
+                        <li><a href="#">Student Projects</a></li>
+                        <li><a href="#">Scholarships</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Industry Partners</a></li>
+                        <li><a href="#">Alumni Network</a></li>
+                        <li><a href="#">Support MPCT</a></li>
+                        <li><a href="#">Newsroom</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 Northern Arizona University. All Rights Reserved. Go Jacks!</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ADDED SCROLL FUNCTION FOR NEW CAROUSEL
+        function scrollGrid(amount) {
+            const container = document.getElementById('cardContainer');
+            container.scrollBy({
+                left: amount,
+                behavior: 'smooth'
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            /* * HERO SLIDER LOGIC 
+             */
+            const slides = document.querySelectorAll('.slide');
+            const nextBtn = document.getElementById('nextSlide');
+            const prevBtn = document.getElementById('prevSlide');
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            let slideInterval;
+
+            function showSlide(index) {
+                // Handle wrap-around
+                if (index >= totalSlides) index = 0;
+                if (index < 0) index = totalSlides - 1;
+                
+                // Remove active class from current
+                slides[currentSlide].classList.remove('active');
+                
+                // Set new index
+                currentSlide = index;
+                
+                // Add active class to new
+                slides[currentSlide].classList.add('active');
+            }
+
+            function nextSlide() {
+                showSlide(currentSlide + 1);
+            }
+
+            function prevSlide() {
+                showSlide(currentSlide - 1);
+            }
+
+            // Event Listeners
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                resetInterval();
+            });
+
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                resetInterval();
+            });
+
+            // Auto Play
+            function startInterval() {
+                slideInterval = setInterval(nextSlide, 6000);
+            }
+
+            function resetInterval() {
+                clearInterval(slideInterval);
+                startInterval();
+            }
+
+            startInterval();
+
+            /* * MOBILE MENU TOGGLE 
+             */
+            const mobileBtn = document.querySelector('.mobile-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            mobileBtn.addEventListener('click', () => {
+                const isHidden = window.getComputedStyle(navMenu).display === 'none';
+                if (isHidden) {
+                    navMenu.style.display = 'flex';
+                    navMenu.style.flexDirection = 'column';
+                    navMenu.style.position = 'absolute';
+                    navMenu.style.top = '100%';
+                    navMenu.style.left = '0';
+                    navMenu.style.width = '100%';
+                    navMenu.style.background = 'var(--nau-blue)';
+                    navMenu.style.padding = '20px';
+                    navMenu.style.zIndex = '1000';
+                } else {
+                    navMenu.style.display = 'none'; // Revert to CSS handling in a real app, but this works for simple toggle
+                    // Clean up inline styles for desktop resize
+                    if(window.innerWidth > 1024) {
+                        navMenu.style.display = '';
+                    }
+                }
+            });
+
+            /* * REMOVED RANDOM STAT UPDATER FOR REGULAR STATS
+             */
+            
+            /*
+             * SCROLL REVEAL ANIMATION
+             */
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const cards = document.querySelectorAll('.card, .featured-story, .player-card, .stat-box');
+            cards.forEach(card => {
+                card.style.opacity = '0'; // Initial state
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
